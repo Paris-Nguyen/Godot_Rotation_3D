@@ -1,0 +1,316 @@
+[gd_scene load_steps=18 format=3 uid="uid://yvrna11n74pb"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_dcx82"]
+[ext_resource type="Texture2D" uid="uid://6jpx60qspuqg" path="res://Colour 006 Square.png" id="2_vbyal"]
+[ext_resource type="Texture2D" uid="uid://dihaqu7ln6osp" path="res://Colour 021 Square.png" id="3_o3d2a"]
+[ext_resource type="Script" path="res://Label.gd" id="4_ir4np"]
+[ext_resource type="Texture2D" uid="uid://i618d40y3bas" path="res://Colour 005 Button.png" id="4_osrc1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cei21"]
+sky_top_color = Color(0.436629, 0.762923, 0.984753, 1)
+sky_horizon_color = Color(0.845611, 0.59587, 0.332249, 1)
+sky_curve = 0.382368
+sky_cover_modulate = Color(0.931481, 0.752345, 0.67151, 1)
+ground_bottom_color = Color(0.430756, 0.314993, 0.067407, 1)
+ground_horizon_color = Color(0.862681, 0.581321, 0.372625, 1)
+ground_curve = 1.94011
+
+[sub_resource type="Sky" id="Sky_574yk"]
+sky_material = SubResource("ProceduralSkyMaterial_cei21")
+
+[sub_resource type="Environment" id="Environment_bmqra"]
+background_mode = 2
+sky = SubResource("Sky_574yk")
+ambient_light_color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euw3j"]
+albedo_texture = ExtResource("2_vbyal")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbvta"]
+albedo_texture = ExtResource("3_o3d2a")
+
+[sub_resource type="PrismMesh" id="PrismMesh_8yt4u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbwie"]
+albedo_texture = ExtResource("4_osrc1")
+
+[sub_resource type="PrismMesh" id="PrismMesh_kyost"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x0bsa"]
+font_size = 20
+font_color = Color(0.907305, 0.822635, 0.748865, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_td4jr"]
+font_size = 20
+font_color = Color(0.905882, 0.823529, 0.74902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_agw16"]
+font_size = 20
+font_color = Color(0.905882, 0.823529, 0.74902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wucb4"]
+font_size = 20
+font_color = Color(0.905882, 0.823529, 0.74902, 1)
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_dcx82")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bmqra")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.270472, 0)
+material_override = SubResource("StandardMaterial3D_euw3j")
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.916809, 0.399325, 0, -0.399325, 0.916809, 0, 3.36791, 5.04787)
+
+[node name="parent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56858, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="parent"]
+material_override = SubResource("StandardMaterial3D_cbvta")
+mesh = SubResource("PrismMesh_8yt4u")
+metadata/_edit_lock_ = true
+
+[node name="child" type="Node3D" parent="parent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="parent/child"]
+material_override = SubResource("StandardMaterial3D_rbwie")
+mesh = SubResource("PrismMesh_kyost")
+skeleton = NodePath("../..")
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel_transform" type="Panel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(380, 700)
+offset_left = 16.0
+offset_top = 104.0
+offset_right = 396.0
+offset_bottom = 804.0
+
+[node name="Label_transform" type="Label" parent="CanvasLayer/Panel_transform"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 22.0
+offset_right = 27.0
+offset_bottom = 50.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+label_settings = SubResource("LabelSettings_x0bsa")
+script = ExtResource("4_ir4np")
+metadata/_edit_lock_ = true
+
+[node name="Panel_syntax" type="Panel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(1050, 150)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1064.0
+offset_top = 16.0
+offset_right = -14.0
+offset_bottom = 166.0
+grow_horizontal = 0
+
+[node name="Label_syntax" type="Label" parent="CanvasLayer/Panel_syntax"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 17.0
+offset_right = 246.0
+offset_bottom = 74.0
+size_flags_horizontal = 8
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_td4jr")
+
+[node name="HBoxContainer_Buttons1" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1040.0
+offset_top = -216.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Button_Plus" type="Button" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+text = "PLUS
+"
+
+[node name="Control" type="Control" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button_Minus" type="Button" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+text = "MINUS"
+
+[node name="Control2" type="Control" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+
+[node name="Button_Mode" type="Button" parent="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+text = "MODE"
+
+[node name="Control" type="Control" parent="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="Button_plus_angle" type="Button" parent="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "PLUS ANGLE"
+
+[node name="Control" type="Control" parent="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button_minus_angle" type="Button" parent="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "MINUS ANGLE"
+
+[node name="Control3" type="Control" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer_Toggle" type="PanelContainer" parent="CanvasLayer/HBoxContainer_Buttons1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle"]
+layout_mode = 2
+
+[node name="CheckButton_x" type="CheckButton" parent="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "X Axis"
+alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="CheckButton_y" type="CheckButton" parent="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Y Axis"
+alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="CheckButton_z" type="CheckButton" parent="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Z Axis
+"
+alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="CheckButton_pc" type="CheckButton" parent="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Parent or Child"
+alignment = 2
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer_Buttons2" type="HBoxContainer" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 392.0
+offset_bottom = 88.0
+
+[node name="Button_Quit" type="Button" parent="CanvasLayer/HBoxContainer_Buttons2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+text = "QUIT
+"
+
+[node name="Control" type="Control" parent="CanvasLayer/HBoxContainer_Buttons2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button_Reset" type="Button" parent="CanvasLayer/HBoxContainer_Buttons2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+text = "RESET
+"
+
+[node name="Panel_Mode" type="Panel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(1050, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1064.0
+offset_top = 176.0
+offset_right = -14.0
+offset_bottom = 268.0
+grow_horizontal = 0
+
+[node name="Label_mode" type="Label" parent="CanvasLayer/Panel_Mode"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 9.0
+offset_right = 101.0
+offset_bottom = 37.0
+label_settings = SubResource("LabelSettings_agw16")
+metadata/_edit_lock_ = true
+
+[node name="Label_angle" type="Label" parent="CanvasLayer/Panel_Mode"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 9.0
+offset_right = 728.0
+offset_bottom = 37.0
+label_settings = SubResource("LabelSettings_wucb4")
+metadata/_edit_lock_ = true
+
+[connection signal="button_down" from="CanvasLayer/HBoxContainer_Buttons1/Button_Plus" to="." method="_on_button_plus_button_down"]
+[connection signal="button_up" from="CanvasLayer/HBoxContainer_Buttons1/Button_Plus" to="." method="_on_button_plus_button_up"]
+[connection signal="button_down" from="CanvasLayer/HBoxContainer_Buttons1/Button_Minus" to="." method="_on_button_minus_button_down"]
+[connection signal="button_up" from="CanvasLayer/HBoxContainer_Buttons1/Button_Minus" to="." method="_on_button_minus_button_up"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/Button_Mode" to="." method="_on_button_mode_pressed"]
+[connection signal="button_down" from="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer/Button_plus_angle" to="." method="_on_button_plus_angle_button_down"]
+[connection signal="button_up" from="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer/Button_plus_angle" to="." method="_on_button_plus_angle_button_up"]
+[connection signal="button_down" from="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer/Button_minus_angle" to="." method="_on_button_minus_angle_button_down"]
+[connection signal="button_up" from="CanvasLayer/HBoxContainer_Buttons1/VBoxContainer/HBoxContainer/Button_minus_angle" to="." method="_on_button_minus_angle_button_up"]
+[connection signal="toggled" from="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer/CheckButton_x" to="." method="_on_check_button_x_toggled"]
+[connection signal="toggled" from="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer/CheckButton_y" to="." method="_on_check_button_y_toggled"]
+[connection signal="toggled" from="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer/CheckButton_z" to="." method="_on_check_button_z_toggled"]
+[connection signal="button_down" from="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer/CheckButton_pc" to="." method="_on_check_button_pc_button_down"]
+[connection signal="button_up" from="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer/CheckButton_pc" to="." method="_on_check_button_pc_button_up"]
+[connection signal="toggled" from="CanvasLayer/HBoxContainer_Buttons1/PanelContainer_Toggle/VBoxContainer/CheckButton_pc" to="." method="_on_check_button_pc_toggled"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer_Buttons2/Button_Quit" to="." method="_on_button_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer_Buttons2/Button_Reset" to="." method="_on_button_reset_pressed"]
